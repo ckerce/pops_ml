@@ -187,9 +187,6 @@ class POPS_NN():
       xr = torch.cos( x )
       xi = torch.sin( x )
 
-      #pr = torch.cos( x )
-      #pi = torch.sin( x )
-
       yr = torch.mm( self.Fr, xr) - torch.mm(self.Fi,xi)
       yi = torch.mm( self.Fi, xr) + torch.mm(self.Fr,xi)
       E = torch.square(yr) + torch.square(yi) 
@@ -200,51 +197,3 @@ class POPS_NN():
       Epen = torch.square(ppr) + torch.square(ppi) 
 
       return E, Epen 
-
-class POPS_ML():
-   def __init__(self, F_main, F_penalty):
-      super(POPS_ML, self).__init__()
-      (numMBSteeringVecs, numArrayElm) = F_main.shape
-      (numPNLTYSteeringVecs, numArrayElm) = F_penalty.shape
-
-      Fr = torch.tensor( np.real(F_main   ).transpose(), requires_grad=False) 
-      Fi = torch.tensor( np.imag(F_main   ).transpose(), requires_grad=False) 
-      Mr = torch.tensor( np.real(F_penalty).transpose(), requires_grad=False) 
-      Mi = torch.tensor( np.imag(F_penalty).transpose(), requires_grad=False) 
-
-      self.activation_real = torch.cos
-      self.activation_imag = torch.sin
-
-      self.MainBeamObjective_real = torch.nn.Linear( numArrayElm, numMVSteeringVecs, bias=False).double()
-      self.MainBeamObjective_imag = torch.nn.Linear( numArrayElm, numMVSteeringVecs, bias=False).double()
-
-      self.MainBeamObjective_real.weight = Fr
-      self.MainBeamObjective_imag.weight = Fi
-
-      self.PenaltyObjective_real = torch.nn.Linear( numArrayElm, numMVSteeringVecs, bias=False).double()
-      self.PenaltyObjective_imag = torch.nn.Linear( numArrayElm, numMVSteeringVecs, bias=False).double()
-
-      self.PenaltyObjective_real.weight = Mr
-      self.PenaltyObjective_imag.weight = Mi
-
-      
-   def forward(self, x):       
-      
-      xr = self.activation_real(x.transpose(0,1))
-      xi = self.activation_imag(x.transpose(0,1))
-
-      yrr = self.MainBeamObjective_real( xr )
-      yri = self.MainBeamObjective_real( xi )
-      yir = self.MainBeamObjective_imag( xr )
-      yii = self.MainBeamObjective_imag( xi )
-
-      outMB = torch.square( yrr - yii )  + torch.square( yir + yri )
-
-      yrr = self.PenaltyObjective_real( xr )
-      yri = self.PenaltyObjective_real( xi )
-      yir = self.PenaltyObjective_imag( xr )
-      yii = self.PenaltyObjective_imag( xi )
-
-      outPn = torch.square( yrr - yii )  + torch.square( yir + yri )
-
-      return outMB, outPn
