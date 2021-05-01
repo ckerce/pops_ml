@@ -101,7 +101,7 @@ for epoch in range(nEpoch):
    for idx in range(nSGD):
       E, Epen = model.forward(phi)
       term = torch.mean( torch.abs( 0.99*torch.max(E)/norm_factor - E/norm_factor))
-      loss = - torch.mean(E)/norm_factor + torch.mean(Epen)/norm_factor + term + torch.relu( - torch.mean(E)/norm_factor + 0.003) 
+      loss = - torch.mean(E)/norm_factor + torch.mean(Epen)/norm_factor + term + torch.relu( - torch.mean(E)/norm_factor + 0.007) 
       optimSGD.zero_grad()
       loss.backward()
       optimSGD.step()
