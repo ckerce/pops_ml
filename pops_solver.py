@@ -7,9 +7,10 @@ from matplotlib import pyplot as plt
 
 def setup_img_file(filename):
    img = image.imread(filename)
-   img = np.average(img,2)
-   img = np.round(img)
-   #img = 1. - img
+   if len(img.shape) > 2:
+      img = np.average(img,2)
+      img = np.round(img)
+      #img = 1. - img
    return img
 
 
@@ -33,14 +34,16 @@ def arrayvar_setup_from_mask(M, clip_val=0.1):
    N = np.zeros((3,num_el))
    X = np.zeros((nx,ny))
    Y = np.zeros((nx,ny))
+   
    count = 0
+   scale_factor = 0.35 #0.5
    for xidx in range(nx):
       for yidx in range(ny):
          if M[xidx,yidx] > clip_val:
-            xtmp = (nx-1)/4. - xidx/2.
-            ytmp = (ny-1)/4. - yidx/2.
-            P[0,count] = xtmp 
-            P[1,count] = ytmp 
+            xtmp = scale_factor * ((nx-1)/4. - xidx/2.)
+            ytmp = scale_factor * ((ny-1)/4. - yidx/2.)
+            P[1,count] = xtmp 
+            P[0,count] = ytmp 
             X[xidx,yidx] = xtmp
             Y[xidx,yidx] = ytmp
 
@@ -52,7 +55,7 @@ def arrayvar_setup_from_mask(M, clip_val=0.1):
 
 def steering_and_penalty_vec_setup_from_img_file(filename, uxlim=0.5, uylim=0.5):
    img = setup_img_file(filename)
-   U = steering_setup_from_mask(img, uxlim, uylim)
+   U = steering_setup_from_mask(img, uxlim, uylim, oversample=2)
    Upen = steering_setup_from_mask(1-img, uxlim, uylim)
    return U, Upen
 
@@ -61,15 +64,15 @@ def steering_vec_setup_from_img_file(filename, uxlim=0.5, uylim=0.5):
    U = steering_setup_from_mask(img, uxlim, uylim)
    return U
     
-def steering_setup_from_mask(img, uxlim=0.5, uylim=0.5):
-   tmpn = np.array(img.shape) * [uxlim, uylim]
+def steering_setup_from_mask(img, uxlim=0.5, uylim=0.5, oversample=1):
+   tmpn = oversample * np.array(img.shape) * [uxlim, uylim]
    (nUx,nUy) = tmpn.astype(int) 
    print(nUx, nUy)
    
-   U = steering_vec_setup(nUx,nUy, uxlim, uylim, img)
+   U = steering_vec_setup(nUx,nUy, uxlim, uylim, img, oversample)
    return U
    
-def steering_vec_setup(nUx, nUy, uxlim=0.5, uylim=0.5, imgMask=[]):
+def steering_vec_setup(nUx, nUy, uxlim=0.5, uylim=0.5, imgMask=[], oversample=1):
    '''
        U = list of pointing directions to evaluate (unit vectors)
    '''
@@ -77,13 +80,15 @@ def steering_vec_setup(nUx, nUy, uxlim=0.5, uylim=0.5, imgMask=[]):
       mask_test = lambda i,j: True
       U = np.zeros( (3,nUx*nUy) )
    else:
-      mask_test = lambda i,j: imgMask[ int( i/uxlim ), int( j/uylim)] > 0.9
+      s = float(oversample)
+      mask_test = lambda i,j: imgMask[ int( i/uxlim / s), int( j/uylim/s) ] > 0.9
       numU = np.min( [float(nUx * nUy), np.sum(imgMask)])
       U = np.zeros((3, int(numU)))
 
    uxvals = np.linspace(-uxlim, uxlim, nUx)
    uyvals = np.linspace(-uylim, uylim, nUy)
    count = 0
+
    for xidx in range(nUx):
       for yidx in range(nUy):
          if mask_test(xidx,yidx):
