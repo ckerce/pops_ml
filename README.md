@@ -1,4 +1,4 @@
-#POPS_ML -- A Phase Only Pattern Synthesis Machine Learning API Implementation   
+**POPS_ML -- A Phase Only Pattern Synthesis Machine Learning API Implementation**
 
 Copyright (C) 2021 by the Georgia Tech Research Institute
 
@@ -8,8 +8,8 @@ Free Software Foundataion.
 
 Citation -- Please cite this work as
 
-J. Clayton Kerce, A Phase Only Pattern Synthesis Reference Implementation as an Adversairal 
-Machine Learning Model in PyTorch, Apr 2021, DOI: github.com/ckerce/pops_ml
+J. Clayton Kerce, A Phase Only Pattern Synthesis Machine Learning API Implementation 
+in PyTorch, Apr 2021, DOI: github.com/ckerce/pops_ml
 
 
 **About:** 
