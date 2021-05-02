@@ -9,7 +9,12 @@ linear algebra libraries for PyTorch or Tensorflow would allow for a slightly
 more concise implementation.
 
 This code provides the building blocks for more sophisticated ideas presented in
+
 J. C. Kerce, G. C. Brown and M. A. Mitchell, "Phase-Only Transmit Beam Broadening for Improved Radar Search Performance," 2007 IEEE Radar Conference, 2007, pp. 451-456, doi: 10.1109/RADAR.2007.374259.
+
+and
+
+G. C. Brown, J. C. Kerce and M. A. Mitchell, "Extreme Beam Broadening using Phase Only Pattern Synthesis," Fourth IEEE Workshop on Sensor Array and Multichannel Processing, 2006., 2006, pp. 36-39, doi: 10.1109/SAM.2006.1706079.
 
 License: POPS_ML is free software: you can redistribute it and/or modify it 
 under the terms of the GNU Lesser General Public License (Version 3) as published by the
