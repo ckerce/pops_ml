@@ -141,32 +141,7 @@ def beamforming_matrix_setup(P,U):
    F = np.exp(1j * propagation_phases)
    return F
 
-class POPS_FarFieldNN():
-   def __init__(self, F_main):
-      '''
-          Unit-ed quantities are scaled to center frequency wavelength units
-          P = list of element positions in 3D (\labmda scaling)
-          U = list of pointing directions to evaluate (unit vectors)
-          Mmax = mask indicating where to maximize energy
-          Mmin = mask indicating where to minimize energy
-          N = list of surface normals 
-          
-      '''
-      super(POPS_FarFieldNN, self).__init__()
-      self.Fr = torch.tensor( np.real(F_main), requires_grad=False) 
-      self.Fi = torch.tensor( np.imag(F_main), requires_grad=False) 
-      
-   def forward(self,x):
-      xr = torch.cos( x )
-      xi = torch.sin( x )
-      yr = torch.mm( self.Fr, xr) - torch.mm(self.Fi,xi)
-      yi = torch.mm( self.Fi, xr) + torch.mm(self.Fr,xi)
-      E = torch.square(yr) + torch.square(yi) 
-      return E 
-
-
-           
-class POPS_NN():
+class POPS_NN_CPU():
    def __init__(self, F_main, F_penalty):
       '''
           Unit-ed quantities are scaled to center frequency wavelength units
@@ -174,14 +149,66 @@ class POPS_NN():
           U = list of pointing directions to evaluate (unit vectors)
           Mmax = mask indicating where to maximize energy
           Mmin = mask indicating where to minimize energy
+          N = list of surface normals
+
+      '''
+      super(POPS_NN_CPU, self).__init__()
+      self.Fr = torch.tensor( np.real(F_main), requires_grad=False)
+      self.Fi = torch.tensor( np.imag(F_main), requires_grad=False)
+      self.Mr = torch.tensor( np.real(F_penalty), requires_grad=False)
+      self.Mi = torch.tensor( np.imag(F_penalty), requires_grad=False)
+
+   def forward(self,x):
+      xr = torch.cos( x )
+      xi = torch.sin( x )
+
+      yr = torch.mm( self.Fr, xr) - torch.mm(self.Fi,xi)
+      yi = torch.mm( self.Fi, xr) + torch.mm(self.Fr,xi)
+      E = torch.square(yr) + torch.square(yi)
+
+
+      ppr = torch.mm( self.Mr, xr) - torch.mm(self.Mi,xi)
+      ppi = torch.mm( self.Mi, xr) + torch.mm(self.Mr,xi)
+      Epen = torch.square(ppr) + torch.square(ppi)
+
+      return E, Epen
+
+           
+class POPS_NN():
+   def __init__(self, F_main, F_penalty, target_device='cpu'):
+      '''
+          Unit-ed quantities are scaled to center frequency wavelength units
+          P = list of element positions in 3D (\labmda scaling)
+          U = list of pointing directions to evaluate (unit vectors)
+          Mmax = mask indicating where to maximize energy
+          Mmin = mask indicating where to minimize energy
           N = list of surface normals 
-          
       '''
       super(POPS_NN, self).__init__()
-      self.Fr = torch.tensor( np.real(F_main), requires_grad=False) 
-      self.Fi = torch.tensor( np.imag(F_main), requires_grad=False) 
-      self.Mr = torch.tensor( np.real(F_penalty), requires_grad=False) 
-      self.Mi = torch.tensor( np.imag(F_penalty), requires_grad=False) 
+      if target_device == 'cuda':
+         actual_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+      else:
+         actual_device='cpu'
+      self.Fr = torch.tensor( np.real(F_main), requires_grad=False).to(actual_device) 
+      self.Fi = torch.tensor( np.imag(F_main), requires_grad=False).to(actual_device) 
+      self.Mr = torch.tensor( np.real(F_penalty), requires_grad=False).to(actual_device) 
+      self.Mi = torch.tensor( np.imag(F_penalty), requires_grad=False).to(actual_device) 
+      self.actual_device = actual_device
+
+   def to(self, target_device='cuda'):
+   
+      if target_device == 'cuda':
+         actual_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+      else:
+         actual_device='cpu'
+
+      print(actual_device)
+      self.Fr = self.Fr.to(actual_device)
+      self.Fi = self.Fi.to(actual_device)
+      self.Mr = self.Mr.to(actual_device)
+      self.Mi = self.Mi.to(actual_device)
+      
+      return actual_device
       
    def forward(self,x):
       xr = torch.cos( x )

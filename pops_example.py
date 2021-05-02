@@ -74,7 +74,7 @@ phi = torch.tensor( 90.9 * np.random.randn(nP,1) , requires_grad=True)
 phiSGD = torch.tensor( 90.9 * np.random.randn(nP,1) , requires_grad=True)
 
 
-model = POPS_NN(F,Fpen)
+model = POPS_NN_CPU(F,Fpen)
 #optimSGD = torch.optim.SGD([phi], lr=9e-1, momentum=0.5)
 phi
 optimSGD = torch.optim.SGD([phi], lr=9e-1, momentum=0.5)
