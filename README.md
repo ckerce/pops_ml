@@ -1,4 +1,4 @@
-# pops_ml
+#POPS_ML -- A Phase Only Pattern Synthesis Machine Learning API Implementation   
 
 Copyright (C) 2021 by the Georgia Tech Research Institute
 
@@ -12,7 +12,8 @@ J. Clayton Kerce, A Phase Only Pattern Synthesis Reference Implementation as an 
 Machine Learning Model in PyTorch, Apr 2021, DOI: github.com/ckerce/pops_ml
 
 
-#About:  
+**About:** 
+
 POPS_ML provides a reference implementation to illustrate the use of
 machine learning APIs in the development of optimization problems.  As such,
 it requires only the PyTorch and numpy libraries to implement.  Existing complex
@@ -27,7 +28,7 @@ and
 
 G. C. Brown, J. C. Kerce and M. A. Mitchell, "Extreme Beam Broadening using Phase Only Pattern Synthesis," Fourth IEEE Workshop on Sensor Array and Multichannel Processing, 2006., 2006, pp. 36-39, doi: 10.1109/SAM.2006.1706079.
 
-
+In modern parlance, the approach generally parallels the technique of White Box Adversarial Machine Learning Attacks presented, for instance, in Goodfellow, et. all, Explaining and Harnessing Adversarial Examples
 
 
 @author Clayton Kerce <clayton.kerce@gtri.gatech.edu>
