@@ -186,7 +186,7 @@ class POPS_NN():
       '''
       super(POPS_NN, self).__init__()
       if target_device == 'cuda':
-         actual_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+         actual_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu').type
       else:
          actual_device='cpu'
       self.Fr = torch.tensor( np.real(F_main), requires_grad=False).to(actual_device) 
