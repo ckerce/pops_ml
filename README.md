@@ -24,8 +24,10 @@ Here we demonstrate the fairly arbitrary decoupling possible between an antenna 
 ### Element pattern layout for example array:
 ![Sparse array layout patterned on a CNN image](./images/array_element_positions.png)
 
-### Natural beam pattern compared to pattern achieved through element level phase modulation
-![Natural Pattern](./images/array_baseline.png)
+### Natural beam pattern:
+![Natural Pattern](./images/array_baseline.png)       
+
+### Beam pattern shaped through phase-only pattern synthesis:
 ![Shaped Pattern](./images/array_shaped.png)
 
 ## Use Considerations 
