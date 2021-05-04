@@ -33,7 +33,7 @@ Here we demonstrate the fairly arbitrary decoupling possible between an antenna 
 ## Use Considerations 
 Copyright (C) 2021 by the Georgia Tech Research Institute
 
-License:  POPS_ML is free software.  You can redistribute it and/or modify it 
+License:  POPS-ML is free software.  You can redistribute it and/or modify it 
 under the terms of the GNU Lesser General Public License (Version 3) as published by the
 Free Software Foundataion.
 
