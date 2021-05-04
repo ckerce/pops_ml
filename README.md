@@ -2,7 +2,7 @@
 
 ## About: 
 
-POPS_ML provides a reference implementation to illustrate the use of
+POPS-ML provides a reference implementation to illustrate the use of
 machine learning APIs in the development of optimization problems.  As such,
 it requires only the PyTorch and numpy libraries to implement.  Existing complex
 linear algebra libraries for PyTorch or Tensorflow would allow for a slightly 
