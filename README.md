@@ -1,4 +1,4 @@
-# POPS-ML:  A Machine Learning API Implementation for Phase Only Pattern Synthesis
+# POPS-ML:  A Machine Learning API Implementation for Phase-Only Pattern Synthesis
 
 ## About: 
 
