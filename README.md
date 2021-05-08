@@ -39,7 +39,8 @@ Free Software Foundataion.
 
 Citation: Please cite this work as
 
-      J. Clayton Kerce, POPS-ML: A Machine Learning API Implementation for Phase-Only Pattern Synthesis, Apr 2021, DOI: github.com/ckerce/pops_ml
+      J. Clayton Kerce, POPS-ML: A Machine Learning API Implementation for 
+      Phase-Only Pattern Synthesis, Apr 2021, DOI: github.com/ckerce/pops_ml
 
 
 @author Clayton Kerce <clayton.kerce@gtri.gatech.edu>
