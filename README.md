@@ -14,7 +14,7 @@ This code provides the building blocks for more sophisticated ideas presented in
 
 - G. C. Brown, J. C. Kerce and M. A. Mitchell, "Extreme Beam Broadening using Phase Only Pattern Synthesis," Fourth IEEE Workshop on Sensor Array and Multichannel Processing, 2006., 2006, pp. 36-39, doi: 10.1109/SAM.2006.1706079.
 
-In modern parlance, the approach generally parallels the technique of white box adversarial machine learning attacks presented, for instance, in Goodfellow, et. all, *Explaining and Harnessing Adversarial Examples*, DOI: https://arxiv.org/abs/1412.6572
+In the parlance of machine learning, the approach generally parallels the technique of white box adversarial machine learning attacks presented, for instance, in Goodfellow, et. all, *Explaining and Harnessing Adversarial Examples*, DOI: https://arxiv.org/abs/1412.6572
 
 ## Demonstration Example
 
