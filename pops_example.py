@@ -60,6 +60,7 @@ for (uidx,up) in enumerate(Up.transpose()):
     if curmax > T:
         tmpI.append(uidx)
 Up = Up[:,tmpI]
+#plt.plot(Up[0,:] * Up[2,:], Up[1,:] * Up[2,:],'r+')
 
 
 
