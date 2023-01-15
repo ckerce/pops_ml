@@ -22,7 +22,7 @@ The phase-only pattern synthesis problem is one that arises when trying to gener
 
 Here we demonstrate the fairly arbitrary decoupling possible between an antenna (with the practically useful characteristics of sparsity and non-uniformity) and the far field beam shape.  The antenna layout is dervied from an images of a CNN diagram from another work, and the target beam pattern are stylized letters reading "ML".  
 
-Running the example with CUDA support consists of
+To generate the shaped pattern with the letters "ML" from a fixed phased array layout, simply run
 ```python 
 python pops_example.py
 ```
