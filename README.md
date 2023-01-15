@@ -21,6 +21,12 @@ In the parlance of machine learning, the approach generally parallels the techni
 The phase-only pattern synthesis problem is one that arises when trying to generate specially shaped transmit antenna patterns.  An example use might be in matching the transmit shape of a geostationary satellite TV antenna to the shape of a continent or country.  Energy directed outside the desired coverage area, e.g. into the ocean, would represent wasted power and resources.  Similarly, the use of linear gain compomponents for shaping the beam is considerably more expensive than using amplifiers designed to work in saturation.  The decoupling of the antenna shape and beam pattern shape can be accomplished by setting each transmit element in a phased array in a specially crafted way.  Although not demonstrated here, the same effect can be implemented with a parabolic dish.  An engineer once commented to me that one particular optimized dish looked like someone had taken a ball-peen hammer to a perfectly good reflector.
 
 Here we demonstrate the fairly arbitrary decoupling possible between an antenna (with the practically useful characteristics of sparsity and non-uniformity) and the far field beam shape.  The antenna layout is dervied from an images of a CNN diagram from another work, and the target beam pattern are stylized letters reading "ML".  
+
+Running the example with CUDA support consists of
+```python 
+python pops_example.py
+```
+
 ### Element pattern layout for example array:
 ![Sparse array layout patterned on a CNN image](./images/array_element_positions.png)
 
