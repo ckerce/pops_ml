@@ -3,7 +3,7 @@
 ## About: 
 
 POPS-ML provides a reference implementation to illustrate the use of
-machine learning APIs in the development of optimization problems.  As such,
+machine learning APIs in the development of solutions to scientific and engineering problems.  As such,
 it requires only the PyTorch and numpy libraries to implement.  Existing complex
 linear algebra libraries for PyTorch or Tensorflow would allow for a slightly 
 more concise implementation.
@@ -28,6 +28,7 @@ python pops_example.py
 ```
 
 ### Element pattern layout for example array:
+This image represents the layout of a planar phased array antenna, showing the locations of element phase centers.  The element locations are irregularly placed (e.g. not on a grid), and with larger than lambda/2 spacing.  The array is thinned in such a way that the picture suggests a deep neural architecture.
 ![Sparse array layout patterned on a CNN image](./images/array_element_positions.png)
 
 ### Natural beam pattern:
